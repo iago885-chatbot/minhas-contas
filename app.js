@@ -2,6 +2,7 @@ const KEY='minhas-contas-v1';
 let state=JSON.parse(localStorage.getItem(KEY)||'null')||{expenses:[{id:crypto.randomUUID(),description:'Aluguel',amount:1800,category:'Moradia',dueDate:new Date().toISOString().slice(0,10),payment:'Pix',status:'pending',recurring:true,notes:''}],budget:5000,month:new Date(new Date().getFullYear(),new Date().getMonth(),1)};
 state.month=new Date(state.month); let editing=null;state.categories ||= ['Moradia','Alimentação','Transporte','Saúde','Educação','Lazer','Assinaturas','Cartão de crédito','Outros'];
 const $=s=>document.querySelector(s); const $$=s=>[...document.querySelectorAll(s)];
+function detectDevice(){document.documentElement.classList.toggle('is-mobile',window.matchMedia('(max-width: 680px)').matches)}detectDevice();window.addEventListener('resize',detectDevice);
 const authUser=JSON.parse(localStorage.getItem('minhas-contas-user')||'null');
 function authPanel(id){['auth-login','auth-register','auth-forgot'].forEach(x=>$('#'+x).hidden=x!==id);$('#auth-message').textContent=''}
 if(authUser) $('#auth-screen').style.display='none';
