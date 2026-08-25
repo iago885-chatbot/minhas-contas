@@ -10,6 +10,13 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <section id="auth-screen" class="auth-screen">
+    <div class="auth-card"><div class="brand auth-brand"><span class="brand-mark">✓</span><span>Minhas<br><b>Contas</b></span></div>
+      <div id="auth-login"><p class="eyebrow">BEM-VINDO DE VOLTA</p><h1>Entre na sua conta</h1><p class="muted">Acompanhe suas despesas com segurança.</p><form id="login-form" class="auth-form"><label>E-mail<input id="login-email" type="email" required placeholder="voce@email.com"></label><label>Senha<input id="login-password" type="password" required placeholder="••••••••"></label><button class="primary">Entrar</button></form><button class="auth-link" id="forgot-link">Esqueci minha senha</button><p class="auth-switch">Ainda não tem uma conta? <button id="show-register">Cadastre-se</button></p></div>
+      <div id="auth-register" hidden><p class="eyebrow">PRIMEIRO ACESSO</p><h1>Crie sua conta</h1><p class="muted">Use um e-mail válido para confirmar seu cadastro.</p><form id="register-form" class="auth-form"><label>Nome<input id="register-name" required placeholder="Seu nome"></label><label>E-mail<input id="register-email" type="email" required placeholder="voce@email.com"></label><label>Senha<input id="register-password" type="password" minlength="8" required placeholder="Mínimo de 8 caracteres"></label><label>Confirmar senha<input id="register-confirm" type="password" minlength="8" required placeholder="Repita sua senha"></label><button class="primary">Criar conta</button></form><p class="auth-switch">Já possui uma conta? <button id="show-login">Entrar</button></p></div>
+      <div id="auth-forgot" hidden><p class="eyebrow">RECUPERAÇÃO</p><h1>Redefina sua senha</h1><p class="muted">Enviaremos um link de confirmação para o seu e-mail.</p><form id="forgot-form" class="auth-form"><label>E-mail<input id="forgot-email" type="email" required placeholder="voce@email.com"></label><button class="primary">Enviar link</button></form><p class="auth-switch"><button id="back-login">Voltar para o login</button></p></div><p id="auth-message" class="auth-message"></p>
+    </div>
+  </section>
   <div class="app-shell">
     <aside class="sidebar">
       <div class="brand"><span class="brand-mark">✓</span><span>Minhas<br><b>Contas</b></span></div>

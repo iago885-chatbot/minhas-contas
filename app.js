@@ -2,6 +2,12 @@ const KEY='minhas-contas-v1';
 let state=JSON.parse(localStorage.getItem(KEY)||'null')||{expenses:[{id:crypto.randomUUID(),description:'Aluguel',amount:1800,category:'Moradia',dueDate:new Date().toISOString().slice(0,10),payment:'Pix',status:'pending',recurring:true,notes:''}],budget:5000,month:new Date(new Date().getFullYear(),new Date().getMonth(),1)};
 state.month=new Date(state.month); let editing=null;
 const $=s=>document.querySelector(s); const $$=s=>[...document.querySelectorAll(s)];
+const authUser=JSON.parse(localStorage.getItem('minhas-contas-user')||'null');
+function authPanel(id){['auth-login','auth-register','auth-forgot'].forEach(x=>$('#'+x).hidden=x!==id);$('#auth-message').textContent=''}
+if(authUser) $('#auth-screen').style.display='none';
+$('#show-register').onclick=()=>authPanel('auth-register');$('#show-login').onclick=()=>authPanel('auth-login');$('#forgot-link').onclick=()=>authPanel('auth-forgot');$('#back-login').onclick=()=>authPanel('auth-login');
+$('#register-form').onsubmit=e=>{e.preventDefault();if($('#register-password').value!==$('#register-confirm').value)return $('#auth-message').textContent='As senhas não coincidem.';localStorage.setItem('minhas-contas-user',JSON.stringify({name:$('#register-name').value,email:$('#register-email').value}));$('#auth-message').textContent='Cadastro criado. A confirmação por e-mail será ativada quando o Supabase for conectado.';setTimeout(()=>$('#auth-screen').style.display='none',1200)};
+$('#login-form').onsubmit=e=>{e.preventDefault();if(!localStorage.getItem('minhas-contas-user'))return $('#auth-message').textContent='Cadastre-se primeiro para entrar.';$('#auth-screen').style.display='none'};$('#forgot-form').onsubmit=e=>{e.preventDefault();$('#auth-message').textContent='Link de recuperação solicitado. Conecte o Supabase para enviar o e-mail real.'};
 const money=v=>v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'}); const date=d=>new Date(d+'T12:00:00').toLocaleDateString('pt-BR');
 function save(){localStorage.setItem(KEY,JSON.stringify({...state,month:state.month.toISOString()}));}
 function monthKey(d){const x=new Date(d);return x.getFullYear()===state.month.getFullYear()&&x.getMonth()===state.month.getMonth()}
