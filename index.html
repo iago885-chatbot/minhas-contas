@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minhas Contas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">✓</span><span>Minhas<br><b>Contas</b></span></div>
+      <nav>
+        <button class="nav-item active" data-view="dashboard">⌂ <span>Visão geral</span></button>
+        <button class="nav-item" data-view="expenses">▣ <span>Contas e despesas</span></button>
+        <button class="nav-item" data-view="reports">◒ <span>Relatórios</span></button>
+      </nav>
+      <div class="sidebar-bottom"><button class="nav-item" data-view="settings">⚙ <span>Configurações</span></button><small>Seus dados ficam salvos<br>neste dispositivo.</small></div>
+    </aside>
+    <main class="main">
+      <header class="topbar"><div><p class="eyebrow">CONTROLE FINANCEIRO</p><h1 id="page-title">Visão geral</h1></div><div class="top-actions"><button id="theme-toggle" class="icon-btn" title="Alternar tema">☼</button><button class="avatar">IG</button></div></header>
+      <section id="view-dashboard" class="view active-view">
+        <div class="welcome-row"><div><h2>Olá, Iago <span>👋</span></h2><p class="muted">Acompanhe sua vida financeira de forma simples.</p></div><button class="primary" id="open-add">+ Adicionar conta</button></div>
+        <div class="month-bar"><button id="prev-month">‹</button><strong id="month-label"></strong><button id="next-month">›</button><button class="today-btn" id="today-btn">Hoje</button></div>
+        <div class="cards"><article class="card accent"><div class="card-icon">R$</div><span>Total do mês</span><strong id="total-month">R$ 0,00</strong><small id="month-change">—</small></article><article class="card"><div class="card-icon green">✓</div><span>Já pago</span><strong id="paid-month">R$ 0,00</strong><small id="paid-count">0 contas</small></article><article class="card"><div class="card-icon orange">◷</div><span>Pendente</span><strong id="pending-month">R$ 0,00</strong><small id="pending-count">0 contas</small></article><article class="card"><div class="card-icon red">!</div><span>Vencidas</span><strong id="overdue-month">R$ 0,00</strong><small id="overdue-count">0 contas</small></article></div>
+        <div class="grid-2"><article class="panel"><div class="panel-head"><div><h3>Despesas por categoria</h3><p class="muted">Distribuição deste mês</p></div><button class="link-btn" data-view="reports">Ver relatório →</button></div><div id="category-chart" class="donut-wrap"><div class="donut"><div class="donut-hole"><b id="donut-total">R$ 0</b><span>total</span></div></div><div id="legend" class="legend"></div></div></article><article class="panel"><div class="panel-head"><div><h3>Próximos vencimentos</h3><p class="muted">Fique em dia com suas contas</p></div><button class="link-btn" data-view="expenses">Ver todas →</button></div><div id="upcoming-list" class="item-list"></div></article></div>
+        <article class="panel"><div class="panel-head"><div><h3>Contas do mês</h3><p class="muted">Resumo das suas movimentações</p></div><button class="link-btn" data-view="expenses">Gerenciar →</button></div><div id="recent-list" class="table-wrap"></div></article>
+      </section>
+      <section id="view-expenses" class="view"><div class="section-title"><div><h2>Contas e despesas</h2><p class="muted">Cadastre e acompanhe seus lançamentos.</p></div><button class="primary" id="open-add-2">+ Nova conta</button></div><div class="toolbar"><input id="search" placeholder="⌕  Buscar conta..."/><select id="status-filter"><option value="all">Todos os status</option><option value="paid">Pagas</option><option value="pending">Pendentes</option><option value="overdue">Vencidas</option></select><select id="category-filter"><option value="all">Todas as categorias</option></select></div><div class="panel table-wrap" id="expenses-table"></div></section>
+      <section id="view-reports" class="view"><div class="section-title"><div><h2>Relatórios</h2><p class="muted">Entenda para onde seu dinheiro está indo.</p></div><button class="secondary" id="export-csv">↓ Exportar CSV</button></div><div class="cards report-cards"><article class="card"><span>Média mensal (últimos 3 meses)</span><strong id="avg-month">R$ 0,00</strong></article><article class="card"><span>Maior categoria</span><strong id="top-category">—</strong></article><article class="card"><span>Maior despesa</span><strong id="top-expense">—</strong></article></div><div class="grid-2"><article class="panel"><h3>Evolução dos gastos</h3><div id="bar-chart" class="bar-chart"></div></article><article class="panel"><h3>Resumo por categoria</h3><div id="report-categories" class="report-categories"></div></article></div></section>
+      <section id="view-settings" class="view"><div class="section-title"><div><h2>Configurações</h2><p class="muted">Personalize seu controle financeiro.</p></div></div><article class="panel settings"><label>Limite mensal de gastos<input id="budget-input" type="number" min="0" step="0.01" placeholder="Ex.: 5000"/></label><button class="primary" id="save-budget">Salvar limite</button><hr><p class="muted">Os dados são armazenados localmente neste navegador. Faça exportações periódicas como backup.</p><button class="danger-outline" id="clear-data">Apagar todos os dados</button></article></section>
+    </main>
+  </div>
+  <dialog id="expense-dialog"><form method="dialog" id="expense-form"><div class="dialog-head"><div><p class="eyebrow">NOVO LANÇAMENTO</p><h2 id="dialog-title">Adicionar conta</h2></div><button value="cancel" class="close">×</button></div><input type="hidden" id="expense-id"><div class="form-grid"><label>Descrição<input id="description" required placeholder="Ex.: Conta de luz"></label><label>Valor (R$)<input id="amount" type="number" min="0.01" step="0.01" required placeholder="0,00"></label><label>Categoria<select id="category"><option>Moradia</option><option>Alimentação</option><option>Transporte</option><option>Saúde</option><option>Educação</option><option>Lazer</option><option>Assinaturas</option><option>Cartão de crédito</option><option>Outros</option></select></label><label>Vencimento<input id="due-date" type="date" required></label><label>Forma de pagamento<select id="payment"><option>Pix</option><option>Cartão de crédito</option><option>Cartão de débito</option><option>Boleto</option><option>Dinheiro</option><option>Outro</option></select></label><label>Status<select id="status"><option value="pending">Pendente</option><option value="paid">Paga</option></select></label></div><label class="check"><input id="recurring" type="checkbox"> Conta recorrente (repetir mensalmente)</label><label>Observações<textarea id="notes" rows="3" placeholder="Opcional"></textarea></label><div class="dialog-actions"><button value="cancel" class="secondary">Cancelar</button><button class="primary" value="default">Salvar conta</button></div></form></dialog>
+  <script src="app.js"></script>
+</body>
+</html>
