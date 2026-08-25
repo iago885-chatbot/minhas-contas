@@ -13,3 +13,5 @@ Abra `index.html` no navegador. Os lançamentos são persistidos no `localStorag
 3. Importar o repositório na Vercel para obter deploy automático.
 
 Esta versão inicial já possui cadastro, edição, exclusão, filtros, dashboard, status de vencimento, limite mensal, tema escuro e exportação CSV.
+
+Deploy sincronizado com a branch master.
