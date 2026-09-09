@@ -32,13 +32,25 @@ create table if not exists public.expenses (
   created_at timestamptz not null default now()
 );
 
+create table if not exists public.monthly_incomes (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references auth.users(id) on delete cascade,
+  month date not null,
+  amount numeric(12,2) not null default 0 check (amount >= 0),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  unique(user_id, month)
+);
+
 alter table public.profiles enable row level security;
 alter table public.categories enable row level security;
 alter table public.expenses enable row level security;
+alter table public.monthly_incomes enable row level security;
 
 create policy "Users manage own profile" on public.profiles for all using (auth.uid() = id) with check (auth.uid() = id);
 create policy "Users manage own categories" on public.categories for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
 create policy "Users manage own expenses" on public.expenses for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+create policy "Users manage own monthly incomes" on public.monthly_incomes for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
 
 create or replace function public.handle_new_user()
 returns trigger language plpgsql security definer set search_path = public as $$
